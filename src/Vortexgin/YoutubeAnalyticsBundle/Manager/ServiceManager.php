@@ -30,7 +30,11 @@ class ServiceManager
     {
         $httpAdapter = new CurlHttpAdapter();
         $uri = $query->build($accessToken);
-        $content = $httpAdapter->getContent($uri)->getBody();
+        if (is_string($httpAdapter->getContent($uri))) {
+            $content = $httpAdapter->getContent($uri);
+        } else {
+            $content = $httpAdapter->getContent($uri)->getBody();
+        }
         $json = json_decode($content, true);
 
         if (!is_array($json) || isset($json['error'])) {

@@ -3,7 +3,9 @@
 namespace Vortexgin\YoutubeAnalyticsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -61,9 +63,21 @@ class DefaultController extends Controller
                 );
             } 
 
-            file_put_contents($this->container->getParameter('vortexgin.youtube.analytics.auth_file'), json_encode($client->getAccessToken()));
-            
-            return new JsonResponse($client->getAccessToken(), 200);
+            if (file_put_contents($this->container->getParameter('vortexgin.youtube.analytics.auth_file'), json_encode($client->getAccessToken()))) {
+                $input = new \Symfony\Component\Console\Input\ArgvInput(array('console','cache:clear'));
+                $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($this->get('kernel'));
+                $application->run($input);
+
+                return new Response('<script language="javascript">window.close();</script>', 200);    
+            } else {
+                return new JsonResponse(
+                    array(
+                        'message' => 'Failed to store access token',
+                        'success' => false,
+                        'timestamp' => new \DateTime()
+                    ), 417
+                );
+            }
         } catch(\Exception $e) {
             $this->container->get('logger')->error(sprintf($e->getMessage()));
             return new JsonResponse(
@@ -504,7 +518,6 @@ class DefaultController extends Controller
                 ), 200
             );
         }catch(\Exception $e){
-            var_dump($e->getTraceAsString());
             $this->container->get('logger')->error(sprintf($e->getMessage()));
             return new JsonResponse(
                 array(
