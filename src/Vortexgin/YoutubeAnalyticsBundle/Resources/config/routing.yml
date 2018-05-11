@@ -1,0 +1,22 @@
+vortexgin_youtube_analytics_oauth:
+    path:     /oauth
+    defaults: { _controller: VortexginYoutubeAnalyticsBundle:Default:oauth }
+    requirements:
+        _method: GET
+vortexgin_youtube_analytics_oauth_callback:
+    path:     /oauthCallback
+    defaults: { _controller: VortexginYoutubeAnalyticsBundle:Default:oauthCallback }
+    requirements:
+        _method: GET
+
+vortexgin_youtube_analytics_yt_channel_performace:
+    path:     /performance/channel
+    defaults: { _controller: VortexginYoutubeAnalyticsBundle:Default:ytChannelPerformance }
+    requirements:
+        _method: POST
+vortexgin_youtube_analytics_yt_video_performace:
+    path:     /performance/video
+    defaults: { _controller: VortexginYoutubeAnalyticsBundle:Default:ytVideoPerformance }
+    requirements:
+        _method: POST
+

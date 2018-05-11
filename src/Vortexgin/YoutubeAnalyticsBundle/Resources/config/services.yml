@@ -1,0 +1,16 @@
+services:
+    widop.http_adapter.curl:
+        class: Widop\HttpAdapter\CurlHttpAdapter
+    vortexgin.youtube.analytics.oauth:
+        class: Vortexgin\YoutubeAnalyticsBundle\Manager\OAuthManager
+        arguments:
+            - %vortexgin.youtube.analytics.config_file%
+            - %vortexgin.youtube.analytics.callback_url%
+    vortexgin.youtube.analytics.query:
+        class: Vortexgin\YoutubeAnalyticsBundle\Manager\QueryManager
+        arguments:
+            - %vortexgin.youtube.analytics.channel_id%
+            - %vortexgin.youtube.analytics.access_token%
+    vortexgin.youtube.analytics.service:
+        class: Vortexgin\YoutubeAnalyticsBundle\Manager\ServiceManager
+        

@@ -1,0 +1,16 @@
+{
+    "name": "vortexgin/youtube-analytics",
+    "license": "GPL v3",
+    "type": "3rd party",
+    "description": "Symfony Youtube Analytics merupakan bundle sederhana untuk melakukan otorisasi dan request performance dari channel youtube.",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "require": {
+        "symfony/symfony": "2.8.*",
+        "widop/http-adapter-bundle": "1.*", 
+        "google/apiclient": "^2.0"
+    }
+}

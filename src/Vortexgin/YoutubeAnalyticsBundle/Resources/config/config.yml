@@ -1,0 +1,5 @@
+vortexgin_youtube_analytics:
+    channel_id: __CHANNEL_ID__
+    auth_file: __AUTH_FILE__
+    config_file: __CONFIG_FILE__
+    callback_url: __CALLBACK_URL__
